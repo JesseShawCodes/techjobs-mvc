@@ -16,6 +16,7 @@ import java.util.HashMap;
 @RequestMapping(value = "list")
 public class ListController {
 
+
     static HashMap<String, String> columnChoices = new HashMap<>();
 
     public ListController () {
@@ -24,12 +25,14 @@ public class ListController {
         columnChoices.put("location", "Location");
         columnChoices.put("position type", "Position Type");
         columnChoices.put("all", "All");
+        System.out.println("Listing Controllers");
     }
 
     @RequestMapping(value = "")
     public String list(Model model) {
 
         model.addAttribute("columns", columnChoices);
+        System.out.println("Return List");
 
         return "list";
     }
@@ -41,12 +44,14 @@ public class ListController {
             ArrayList<HashMap<String, String>> jobs = JobData.findAll();
             model.addAttribute("title", "All Jobs");
             model.addAttribute("jobs", jobs);
+            System.out.println("Return list-jobs");
             return "list-jobs";
         } else {
             ArrayList<String> items = JobData.findAll(column);
             model.addAttribute("title", "All " + columnChoices.get(column) + " Values");
             model.addAttribute("column", column);
             model.addAttribute("items", items);
+            System.out.println("Return list-column");
             return "list-column";
         }
 
